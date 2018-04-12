@@ -14,12 +14,19 @@ function init() {
     init_game_array();
 }
 
+function check_game_over() {
+    var win = new createjs.Shape();
+    win.name = "win";
+    win.graphics.setStrokeStyle(3);
+    win.graphics.beginStroke('#e74c3c');
+}
+
 function next_move() {
-    if (turn == 0) return;
-    if (turn == game_log.length) stage.removeChild(stage.getChildByName("win_line"));
+    if (turn === 0) return;
+    if (turn === game_log.length) stage.removeChild(stage.getChildByName("win_line"));
     turn--;
     remove_move(game_log[turn][0], game_log[turn][1]);
-    current_player = current_player == 1 ? 2 : 1;
+    current_player = current_player === 1 ? 2 : 1;
 }
 
 function place_move(player, x, y) {
@@ -38,9 +45,9 @@ function draw_game_state() {
     container.name = "game_state_container";
     for ( var i = 0; i <= 18; i++) {
         for (var j = 0; j <= 22; j++) {
-            if (game_state[i][j] != 0) {
-                var color = game_state[i][j] == 1 ? "#000000" : "#ffffff";
-                if (i % 2 == 0) {
+            if (game_state[i][j] !== 0) {
+                var color = game_state[i][j] === 1 ? "#000000" : "#ffffff";
+                if (i % 2 === 0) {
                     container.addChild(polygon_maker(40 + 54 * (j-3), 35 + (i-4)/2 * 96, 15, color));
                 } else {
                     container.addChild(polygon_maker(67 + 54 * (j-3), 83 + (i-5)/2 * 96, 15, color));
@@ -70,10 +77,10 @@ function draw_game_table(stage) {
             polygon.addEventListener("click", move_click(i * 2, j - 1));
             stage.addChild(polygon);
         }
-        if (i != 5) {
-            for ( var j = 1; j <= 14; j++) {
-                polygon = polygon_maker(67 + 54 * j, 83 + i * 96, 30, "#a98307");
-                polygon.addEventListener("click", move_click(i * 2 + 1, j - 1));
+        if (i !== 5) {
+            for ( var k = 1; k <= 14; k++) {
+                polygon = polygon_maker(67 + 54 * k, 83 + i * 96, 30, "#a98307");
+                polygon.addEventListener("click", move_click(i * 2 + 1, k - 1));
                 stage.addChild(polygon);
             }
         }
@@ -83,13 +90,13 @@ function draw_game_table(stage) {
 
 function move_click(j, i) {
     return function(event) {
-        if (game_log.indexOf(j+" "+i) != -1){
+        if (game_log.indexOf(j+" "+i) !== -1){
             return
         } else {
             game_log.push(j+" "+i);
         }
         place_move(current_player, j, i);
-        current_player = current_player == 1 ? 2 : 1;
+        current_player = current_player === 1 ? 2 : 1;
         check_game_over();
     }
 }
