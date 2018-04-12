@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BeeMoKu</title>
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script src="https://code.createjs.com/createjs-2015.11.26.min.js"></script>
+</head>
+<body>
+    <div style="text-align: center;">
+        <canvas style="background-color: white; border-bottom: 10px solid #209900; border-top: 10px solid #209900" id="gameCanvas" width="950" height="550">
+        </canvas>
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            init();
+        });
+
+        function init() {
+            stage = new createjs.Stage("gameCanvas");
+            draw_game_table(stage); // Draw the table
+        }
+
+        function polygon_maker(x, y, size, color) {
+            // Đây là hàm vẽ một hình lục giác đều với vị trí, kích cỡ, màu sắc tuỳ ý
+            var polygon = new createjs.Shape();
+            polygon.graphics.beginFill(color).drawPolyStar(x, y, size, 6, 0, 30);
+            return polygon;
+        }
+
+        function draw_game_table(stage) {
+            // Drawing 160 polygon cells
+            var polygon;
+            for (j=0; j<=5; j++) {
+                for (i=1; i<=15; i++) {
+                    polygon = polygon_maker(40 + 54 * i, 35 + j * 96, 30, "#209900");
+
+                    stage.addChild(polygon);
+                }
+                if (j != 5) {
+                    for (i=1; i<=14; i++) {
+                        polygon = polygon_maker(67 + 54 * i, 83 + j * 96, 30, "#209900");
+
+                        stage.addChild(polygon);
+                    }
+                }
+            }
+            stage.update(); // Update lại stage, lúc này các hình lục giác mới chính thức xuất hiện trên canvas
+        }
+    </script>
+</body>
+</html>
