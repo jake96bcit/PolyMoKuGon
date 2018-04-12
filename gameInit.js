@@ -30,9 +30,21 @@ function polygon_maker(x, y, size, color) {
     return polygon;
 }
 
+function next_move() {
+    if (turn == 0) return;
+    if (turn == game_log.length) stage.removeChild(stage.getChildByName("win_line"));
+    turn--;
+    remove_move(game_log[turn][0], game_log[turn][1]);
+    current_player = current_player == 1 ? 2 : 1;
+}
 
 function place_move(player, x, y) {
     game_state[x+4][y+4] = player;
+    draw_game_state();
+}
+
+function remove_move() {
+    game_state[x+4][y+4] = 0;
     draw_game_state();
 }
 
