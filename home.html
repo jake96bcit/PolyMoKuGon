@@ -3,15 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" type="text/css" href="polymokugon_style_sheet.css">
     <title>BeeMoKu</title>
     <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
     <script src="createjs.min.js"></script>
     <script src="gameInit.js"></script>
 </head>
 <body>
+    <div class="reload">
+        <span onClick="window.location.reload()">New Game</span>
+        <span id="myBtn">How To Play?</span>
+        <div id="offerModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p style="text-align: center;">How to play this game?</p>
+                <p>1. This game is made based on "tic tac toe" logic but you have to hit FIVE in a row in order to win the game!</p>
+                <p>2. Since the cell is in hexagon so vertical line is not a win line.</p>
+                <p>3. The game board will renew when a player win the game.</p>
+                <p>4. Last thing is HAVE FUN and ENJOY THE GAME!</p>
+            </div>
+        </div>
+        <br/>
+    </div>
     <div style="text-align: center;">
-        <canvas style="background-color: white; border-bottom: 10px solid #ebaf4c; border-top: 10px solid #ebaf4c" id="gameCanvas" width="1150" height="650">
+        <canvas style=" border-bottom: 10px solid #ebaf4c; border-top: 10px solid #ebaf4c" id="gameCanvas" width="1000" height="550">
         </canvas>
     </div>
+    <script>
+        // Get the modal
+        var modal = document.getElementById('offerModal');
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function() {
+                modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        </script>
 </body>
 </html>

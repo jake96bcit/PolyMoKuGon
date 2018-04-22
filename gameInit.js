@@ -3,6 +3,7 @@ var game_state = Array();
 var turn = 0;
 var current_player = 1;
 var game_log = [];
+var isWin = 0;
 
 $(function(){
     init();
@@ -14,7 +15,7 @@ function init() {
     init_game_array();
 }
 
-function check_game_over() {
+function check_game_over(currentplayer) {
     var win_line = new createjs.Shape();
     win_line.name = "win_line";
     win_line.graphics.setStrokeStyle(3);
@@ -28,8 +29,16 @@ function check_game_over() {
                 ||[game_state[j][i+1],game_state[j][i+2],game_state[j][i+3],game_state[j][i+4],game_state[j][i]].check_same()) {
                 if (j%2 === 0) {
                     win_line.graphics.moveTo(40 + 54 * (i-3) - 30, 35 + (j-4)/2 * 96).lineTo(40 + 54 * (i-3) + 30, 35 + (j-4)/2 * 96);
+                    if (isWin == 0) {
+                        if(!alert('Player ' + currentplayer + " win!!!")){setTimeout(function() {window.location.reload();}, 2000);}
+                        isWin++;
+                    }
                 } else {
                     win_line.graphics.moveTo(67 + 54 * (i-3) - 30, 83 + (j-5)/2 * 96).lineTo(67 + 54 * (i-3) + 30, 83 + (j-5)/2 * 96);
+                    if (isWin == 0) {
+                        if(!alert('Player ' + currentplayer + " win!!!")){setTimeout(function() {window.location.reload();}, 2000);}
+                        isWin++;
+                    }
                 }
             }
             var ya = j%2 === 0 ? [i-2,i-2,i-1,i-1,i,i+1,i+1,i+2] : [i-2,i-1,i-1,i,i+1,i+1,i+2,i+2];
@@ -40,8 +49,16 @@ function check_game_over() {
                 ||[game_state[j+1][ya[4]],game_state[j+2][ya[5]],game_state[j+3][ya[6]],game_state[j+4][ya[7]],game_state[j][i]].check_same()) {
                 if (j%2 === 0) {
                     win_line.graphics.moveTo(40 + 54 * (i-3) - 17, 35 + (j-4)/2 * 96 - 30).lineTo(40 + 54 * (i-3) + 17, 35 + (j-4)/2 * 96 + 30);
+                    if (isWin == 0) {
+                        if(!alert('Player ' + currentplayer + " win!!!")){setTimeout(function() {window.location.reload();}, 2000);}
+                        isWin++;
+                    }
                 } else {
                     win_line.graphics.moveTo(67 + 54 * (i-3) - 17, 83 + (j-5)/2 * 96 - 30).lineTo(67 + 54 * (i-3) + 17, 83 + (j-5)/2 * 96 + 30);
+                    if (isWin == 0) {
+                        if(!alert('Player ' + currentplayer + " win!!!")){setTimeout(function() {window.location.reload();}, 2000);}
+                        isWin++;
+                    }
                 }
             }
             ya = j%2 === 0 ? [i+2,i+1,i+1,i,i-1,i-1,i-2,i-2] : [i+2,i+2,i+1,i+1,i,i-1,i-1,i-2];
@@ -52,14 +69,23 @@ function check_game_over() {
                 ||[game_state[j+1][ya[4]],game_state[j+2][ya[5]],game_state[j+3][ya[6]],game_state[j+4][ya[7]],game_state[j][i]].check_same()) {
                 if (j%2 === 0) {
                     win_line.graphics.moveTo(40 + 54 * (i-3) + 17, 35 + (j-4)/2 * 96 - 30).lineTo(40 + 54 * (i-3) - 17, 35 + (j-4)/2 * 96 + 30);
+                    if (isWin == 0) {
+                        if(!alert('Player ' + currentplayer + " win!!!")){setTimeout(function() {window.location.reload();}, 2000);}
+                        isWin++;
+                    }
                 } else {
                     win_line.graphics.moveTo(67 + 54 * (i-3) + 17, 83 + (j-5)/2 * 96 - 30).lineTo(67 + 54 * (i-3) - 17, 83 + (j-5)/2 * 96 + 30);
+                    if (isWin == 0) {
+                        if(!alert('Player ' + currentplayer + " win!!!")){setTimeout(function() {window.location.reload();}, 2000);}
+                        isWin++;
+                    }
                 }
             }
         }
     }
     stage.addChild(win_line);
     stage.update();
+
 }
 (function() {
     Array.prototype.check_same = function (){
@@ -157,7 +183,7 @@ function move_click(j, i) {
         }
         place_move(current_player, j, i);
         current_player = current_player === 1 ? 2 : 1;
-        check_game_over();
+        check_game_over(current_player);
     }
 }
 
